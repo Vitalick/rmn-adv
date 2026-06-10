@@ -13,11 +13,7 @@ need_root() {
 read_public_key() {
     echo "Paste your SSH public key below, then press Enter:" >&2
     printf "> " >&2
-    if ! IFS= read -r public_key 2>/dev/null < /dev/tty; then
-        echo "Cannot read SSH public key: no interactive terminal is available." >&2
-        echo "Run this script from an interactive shell, not from a non-interactive session." >&2
-        exit 1
-    fi
+    IFS= read -r public_key
 
     if [ -z "$public_key" ]; then
         echo "Public key is empty, aborting." >&2
