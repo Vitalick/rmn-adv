@@ -136,7 +136,7 @@ install_remnanode() {
         exit 1
     fi
 
-    bash -c "$installer_source" remnanode-installer @ install
+    bash -c "$installer_source" remnanode-installer @ install < /dev/tty
 }
 
 main() {
