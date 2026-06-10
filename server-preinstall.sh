@@ -128,13 +128,15 @@ restart_sshd() {
 
 install_remnanode() {
     if command -v curl >/dev/null 2>&1; then
-        curl -Ls "$REMOTE_INSTALLER_URL" | bash -s -- @ install
+        installer_source="$(curl -Ls "$REMOTE_INSTALLER_URL")"
     elif command -v wget >/dev/null 2>&1; then
-        wget -qO- "$REMOTE_INSTALLER_URL" | bash -s -- @ install
+        installer_source="$(wget -qO- "$REMOTE_INSTALLER_URL")"
     else
         echo "Install curl or wget before installing remnanode." >&2
         exit 1
     fi
+
+    bash -c "$installer_source" remnanode-installer @ install
 }
 
 main() {
