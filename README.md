@@ -11,19 +11,19 @@
 Если файл уже скачан на сервер:
 
 ```sh
-sudo sh server-preinstall.sh
+bash server-preinstall.sh
 ```
 
 Запуск напрямую с GitHub:
 
 ```sh
-sudo bash <(curl -Ls https://raw.githubusercontent.com/Vitalick/rmn-adv/refs/heads/main/server-preinstall.sh)
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Vitalick/rmn-adv/refs/heads/main/server-preinstall.sh)"
 ```
 
 Или через `wget`:
 
 ```sh
-sudo bash <(wget -qO- https://raw.githubusercontent.com/Vitalick/rmn-adv/refs/heads/main/server-preinstall.sh)
+bash -c "$(wget -qO- https://raw.githubusercontent.com/Vitalick/rmn-adv/refs/heads/main/server-preinstall.sh)"
 ```
 
 Скрипт нужно запускать от `root`. Перед запуском убедитесь, что у вас есть рабочий публичный SSH-ключ: после отключения парольного входа доступ к серверу будет возможен только по ключу.

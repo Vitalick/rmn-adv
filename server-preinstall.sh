@@ -2,10 +2,30 @@
 set -eu
 
 REMOTE_INSTALLER_URL="https://github.com/DigneZzZ/remnawave-scripts/raw/main/remnanode.sh"
+SCRIPT_URL="https://raw.githubusercontent.com/Vitalick/rmn-adv/refs/heads/main/server-preinstall.sh"
 
 need_root() {
-    if [ "$(id -u)" -ne 0 ]; then
-        echo "Run this script as root: sudo sh $0" >&2
+    if [ "$(id -u)" -eq 0 ]; then
+        return
+    fi
+
+    if ! command -v sudo >/dev/null 2>&1; then
+        echo "Run this script as root: sudo bash $0" >&2
+        exit 1
+    fi
+
+    echo "Root privileges are required. Re-running with sudo..." >&2
+    script_source="$(download_self)"
+    exec sudo bash -c "$script_source"
+}
+
+download_self() {
+    if command -v curl >/dev/null 2>&1; then
+        curl -fsSL "$SCRIPT_URL"
+    elif command -v wget >/dev/null 2>&1; then
+        wget -qO- "$SCRIPT_URL"
+    else
+        echo "Install curl or wget before running this script." >&2
         exit 1
     fi
 }
