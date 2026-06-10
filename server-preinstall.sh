@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 set -eu
 
 REMOTE_INSTALLER_URL="https://github.com/DigneZzZ/remnawave-scripts/raw/main/remnanode.sh"
@@ -128,15 +128,13 @@ restart_sshd() {
 
 install_remnanode() {
     if command -v curl >/dev/null 2>&1; then
-        installer_source="$(curl -Ls "$REMOTE_INSTALLER_URL")"
+        bash <(curl -Ls "$REMOTE_INSTALLER_URL") @ install
     elif command -v wget >/dev/null 2>&1; then
-        installer_source="$(wget -qO- "$REMOTE_INSTALLER_URL")"
+        bash <(wget -qO- "$REMOTE_INSTALLER_URL") @ install
     else
         echo "Install curl or wget before installing remnanode." >&2
         exit 1
     fi
-
-    bash -c "$installer_source" remnanode-installer @ install < /dev/tty
 }
 
 main() {
